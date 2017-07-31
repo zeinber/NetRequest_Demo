@@ -3,8 +3,9 @@
 
 简书地址:http://www.jianshu.com/p/cd8d29453b9a
 ##实现原理
-
+---
 runtime有一个方法，就是可以去遍历一个类对象的所有属性。
+---
 '''objc
 MyClass *myClass = [[MyClass alloc] init];//创建了类对象
     unsigned int outCount = 0;//记录类对象属性的个数
