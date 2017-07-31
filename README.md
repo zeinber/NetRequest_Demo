@@ -2,7 +2,7 @@ NetRequest_Demo
 基于runtime的网络请求封装
 
 ---
-## usage
+## introduce
 
 ```objc
 简书地址:http://www.jianshu.com/p/cd8d29453b9a
