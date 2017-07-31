@@ -4,8 +4,8 @@ NetRequest_Demo
 ---
 ## introduce
 
-```objc
 简书地址:[iOS基于runtime的网络请求封装](http://www.jianshu.com/p/cd8d29453b9a)。
+```objc
 实现原理
 runtime有一个方法，就是可以去遍历一个类对象的所有属性。
 
