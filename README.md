@@ -1,12 +1,14 @@
-# NetRequest_Demo
+NetRequest_Demo
 基于runtime的网络请求封装
 
+---
+## usage
+
+```objc
 简书地址:http://www.jianshu.com/p/cd8d29453b9a
-##实现原理
----
+实现原理
 runtime有一个方法，就是可以去遍历一个类对象的所有属性。
----
-'''objc
+
 MyClass *myClass = [[MyClass alloc] init];//创建了类对象
     unsigned int outCount = 0;//记录类对象属性的个数
     Class cls = [myClass class];//获取类名
@@ -19,7 +21,7 @@ MyClass *myClass = [[MyClass alloc] init];//创建了类对象
         }
     }
     free(properties);//释放指针
-'''
+
 由此可以得到一个启发：网络请求是可以通过类文件来管理的。
 
 思路
@@ -30,3 +32,5 @@ MyClass *myClass = [[MyClass alloc] init];//创建了类对象
 
 1.网络请求可以通过文件的形式统一管理，方便开发者根据文件结构去寻找对应的请求。
 2.需要做统一操作时，可以在BaseNetRequest文件中进行处理。
+
+```
