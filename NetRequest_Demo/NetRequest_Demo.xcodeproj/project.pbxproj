@@ -290,7 +290,7 @@
 				TargetAttributes = {
 					1711A7EF1EF00BDE00B8C8B8 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = VWHN44J49B;
+						DevelopmentTeam = X5L85KS9B2;
 						ProvisioningStyle = Automatic;
 					};
 					1711A8081EF00BDE00B8C8B8 = {
@@ -647,7 +647,7 @@
 			baseConfigurationReference = 826CC32F1F9F1A2565838406 /* Pods-NetRequest_Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = VWHN44J49B;
+				DEVELOPMENT_TEAM = X5L85KS9B2;
 				INFOPLIST_FILE = NetRequest_Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yzl.NetRequest-Demo";
@@ -660,7 +660,7 @@
 			baseConfigurationReference = 90752D70B062DA3EBE03CC8C /* Pods-NetRequest_Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = VWHN44J49B;
+				DEVELOPMENT_TEAM = X5L85KS9B2;
 				INFOPLIST_FILE = NetRequest_Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yzl.NetRequest-Demo";

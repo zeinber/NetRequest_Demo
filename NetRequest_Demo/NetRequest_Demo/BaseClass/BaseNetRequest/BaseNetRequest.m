@@ -9,12 +9,19 @@
 #import "BaseNetRequest.h"
 #import <objc/runtime.h>
 
+@interface BaseNetRequest()
+
+@property (nonatomic, strong) AFHTTPSessionManager *httpGetManager;
+//
+@property (nonatomic, strong) AFHTTPSessionManager *httpPostManager;
+@end
+
 @implementation BaseNetRequest
 
 #pragma mark - init methods
 ///自定义初始化方法
 - (instancetype)initWithApiUrl:(NSString *)api_url {
-    self = [self init];
+    self = [super init];
     if (self) {
         // 保存请求地址
         self.api_url = api_url;
@@ -82,13 +89,14 @@
             }
         }
     }
+    free(properties);
     return attributes;
 }
 
 #pragma - mark 网络请求
 - (void)NetRequestWithReturnValeuBlock:(ReturnValueBlock)block
-                     WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                       WithFailureBlock:(FailureBlock)failureBlock {
+                    WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                      WithFailureBlock:(FailureBlock)failureBlock {
     // 1.拼接完整的URL
     NSString *urlString = [NSString stringWithFormat:@"%@/%@",API_URL,self.api_url];
     // 2.获取参数
@@ -106,7 +114,7 @@
     }
     
     NSDictionary *param = finalParam;
-
+    
     // 3.根据get或者post调用对应方法
     if ([self.httpMethod caseInsensitiveCompare:@"GET"] == NSOrderedSame) {
         [self netRequestGETWithRequestURL:urlString WithParameter:param WithReturnValeuBlock:^(id returnValue) {
@@ -129,11 +137,12 @@
 
 ///GET请求
 - (void)netRequestGETWithRequestURL:(NSString *)requestURLString
-                       WithParameter:(NSDictionary *)parameter
-                WithReturnValeuBlock:(ReturnValueBlock)block
-                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                    WithFailureBlock:(FailureBlock)failureBlock {
+                      WithParameter:(NSDictionary *)parameter
+               WithReturnValeuBlock:(ReturnValueBlock)block
+                 WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                   WithFailureBlock:(FailureBlock)failureBlock {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    _httpGetManager = manager;
     ((AFJSONResponseSerializer *)manager.responseSerializer).removesKeysWithNullValues = YES;///去掉返回的控制 ep:返回数据中 xx:null这种数据会被去掉
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/javascript",@"text/plain", nil];//看具体情况而定
     [manager GET:requestURLString parameters:parameter progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -146,15 +155,17 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failureBlock();
     }];
+    
 }
 
 ///POST请求
 - (void)netRequestPOSTWithRequestURL:(NSString *)requestURLString
-                        WithParameter:(NSDictionary *)parameter
-                 WithReturnValeuBlock:(ReturnValueBlock)block
-                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                     WithFailureBlock:(FailureBlock)failureBlock {
+                       WithParameter:(NSDictionary *)parameter
+                WithReturnValeuBlock:(ReturnValueBlock)block
+                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                    WithFailureBlock:(FailureBlock)failureBlock {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    _httpPostManager = manager;
     ((AFJSONResponseSerializer *)manager.responseSerializer).removesKeysWithNullValues = YES;///去掉返回的控制 ep:返回数据中 xx:null这种数据会被去掉
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/javascript",@"text/plain", nil];//看具体情况而定
     [manager POST:requestURLString parameters:parameter progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -170,3 +181,4 @@
 }
 
 @end
+
