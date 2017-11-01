@@ -10,9 +10,7 @@
 #import <objc/runtime.h>
 
 @interface BaseNetRequest()
-
 @property (nonatomic, strong) AFHTTPSessionManager *httpGetManager;
-//
 @property (nonatomic, strong) AFHTTPSessionManager *httpPostManager;
 @end
 
@@ -58,6 +56,7 @@
                 }
             }
         }
+        free(properties);
     }
     return self;
 }
