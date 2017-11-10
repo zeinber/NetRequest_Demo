@@ -2,7 +2,7 @@ NetRequest_Demo
 基于runtime的网络请求封装
 
 ---
-## introduce
+## Introduce
 
 简书地址:[iOS基于runtime的网络请求封装](http://www.jianshu.com/p/cd8d29453b9a)。
 ```objc
