@@ -10,8 +10,7 @@
 #import <objc/runtime.h>
 
 @interface BaseNetRequest()
-@property (nonatomic, strong) AFHTTPSessionManager *httpGetManager;
-@property (nonatomic, strong) AFHTTPSessionManager *httpPostManager;
+
 @end
 
 @implementation BaseNetRequest
@@ -141,7 +140,6 @@
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                    WithFailureBlock:(FailureBlock)failureBlock {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    _httpGetManager = manager;
     ((AFJSONResponseSerializer *)manager.responseSerializer).removesKeysWithNullValues = YES;///去掉返回的控制 ep:返回数据中 xx:null这种数据会被去掉
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/javascript",@"text/plain", nil];//看具体情况而定
     [manager GET:requestURLString parameters:parameter progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -151,8 +149,12 @@
         }else {
             errorBlock(responseObject);
         }
+        //解决afn3.x的内存泄露问题
+        [manager.session finishTasksAndInvalidate];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failureBlock();
+        //解决afn3.x的内存泄露问题
+        [manager.session finishTasksAndInvalidate];
     }];
     
 }
@@ -164,7 +166,6 @@
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                     WithFailureBlock:(FailureBlock)failureBlock {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    _httpPostManager = manager;
     ((AFJSONResponseSerializer *)manager.responseSerializer).removesKeysWithNullValues = YES;///去掉返回的控制 ep:返回数据中 xx:null这种数据会被去掉
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/javascript",@"text/plain", nil];//看具体情况而定
     [manager POST:requestURLString parameters:parameter progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -174,8 +175,12 @@
         }else {
             errorBlock(responseObject);
         }
+        //解决afn3.x的内存泄露问题
+        [manager.session finishTasksAndInvalidate];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failureBlock();
+        //解决afn3.x的内存泄露问题
+        [manager.session finishTasksAndInvalidate];
     }];
 }
 
